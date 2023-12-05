@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="Accuracy of group sequential bounds">
@@ -94,7 +94,7 @@ Anderson, Yujie Zhao, and Nan Xiao</h4>
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://merck.github.io/gsDesign2/">gsDesign2</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org" class="external-link">tidyr</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gt.rstudio.com/" class="external-link">gt</a></span><span class="op">)</span></span></code></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gt.rstudio.com" class="external-link">gt</a></span><span class="op">)</span></span></code></pre></div>
 <p>The preliminary evaluation below suggests sticking with the default
 numerical integration parameter <code>r=18</code> and default
 Newton-Raphson convergence criterion for bounds of
@@ -164,23 +164,23 @@ as clean a dataset as possible at the time of a database lock.</p>
 <span>    columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1e-06"</span>, <span class="st">"1e-12"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html" class="external-link">fmt_number</a></span><span class="op">(</span>col <span class="op">=</span> <span class="fl">4</span><span class="op">:</span><span class="fl">5</span>, decimals <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span></code></pre></div>
-<div id="gnqynwcxnd" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#gnqynwcxnd table {
+<div id="xxkjmsrbiv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#xxkjmsrbiv table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#gnqynwcxnd thead, #gnqynwcxnd tbody, #gnqynwcxnd tfoot, #gnqynwcxnd tr, #gnqynwcxnd td, #gnqynwcxnd th {
+#xxkjmsrbiv thead, #xxkjmsrbiv tbody, #xxkjmsrbiv tfoot, #xxkjmsrbiv tr, #xxkjmsrbiv td, #xxkjmsrbiv th {
   border-style: none;
 }
 
-#gnqynwcxnd p {
+#xxkjmsrbiv p {
   margin: 0;
   padding: 0;
 }
 
-#gnqynwcxnd .gt_table {
+#xxkjmsrbiv .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -206,12 +206,12 @@ as clean a dataset as possible at the time of a database lock.</p>
   border-left-color: #D3D3D3;
 }
 
-#gnqynwcxnd .gt_caption {
+#xxkjmsrbiv .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#gnqynwcxnd .gt_title {
+#xxkjmsrbiv .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -223,7 +223,7 @@ as clean a dataset as possible at the time of a database lock.</p>
   border-bottom-width: 0;
 }
 
-#gnqynwcxnd .gt_subtitle {
+#xxkjmsrbiv .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -235,7 +235,7 @@ as clean a dataset as possible at the time of a database lock.</p>
   border-top-width: 0;
 }
 
-#gnqynwcxnd .gt_heading {
+#xxkjmsrbiv .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -247,13 +247,13 @@ as clean a dataset as possible at the time of a database lock.</p>
   border-right-color: #D3D3D3;
 }
 
-#gnqynwcxnd .gt_bottom_border {
+#xxkjmsrbiv .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#gnqynwcxnd .gt_col_headings {
+#xxkjmsrbiv .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -268,7 +268,7 @@ as clean a dataset as possible at the time of a database lock.</p>
   border-right-color: #D3D3D3;
 }
 
-#gnqynwcxnd .gt_col_heading {
+#xxkjmsrbiv .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -288,7 +288,7 @@ as clean a dataset as possible at the time of a database lock.</p>
   overflow-x: hidden;
 }
 
-#gnqynwcxnd .gt_column_spanner_outer {
+#xxkjmsrbiv .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -300,15 +300,15 @@ as clean a dataset as possible at the time of a database lock.</p>
   padding-right: 4px;
 }
 
-#gnqynwcxnd .gt_column_spanner_outer:first-child {
+#xxkjmsrbiv .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#gnqynwcxnd .gt_column_spanner_outer:last-child {
+#xxkjmsrbiv .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#gnqynwcxnd .gt_column_spanner {
+#xxkjmsrbiv .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -320,11 +320,11 @@ as clean a dataset as possible at the time of a database lock.</p>
   width: 100%;
 }
 
-#gnqynwcxnd .gt_spanner_row {
+#xxkjmsrbiv .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#gnqynwcxnd .gt_group_heading {
+#xxkjmsrbiv .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -350,7 +350,7 @@ as clean a dataset as possible at the time of a database lock.</p>
   text-align: left;
 }
 
-#gnqynwcxnd .gt_empty_group_heading {
+#xxkjmsrbiv .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -365,15 +365,15 @@ as clean a dataset as possible at the time of a database lock.</p>
   vertical-align: middle;
 }
 
-#gnqynwcxnd .gt_from_md > :first-child {
+#xxkjmsrbiv .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#gnqynwcxnd .gt_from_md > :last-child {
+#xxkjmsrbiv .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#gnqynwcxnd .gt_row {
+#xxkjmsrbiv .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -392,7 +392,7 @@ as clean a dataset as possible at the time of a database lock.</p>
   overflow-x: hidden;
 }
 
-#gnqynwcxnd .gt_stub {
+#xxkjmsrbiv .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -405,7 +405,7 @@ as clean a dataset as possible at the time of a database lock.</p>
   padding-right: 5px;
 }
 
-#gnqynwcxnd .gt_stub_row_group {
+#xxkjmsrbiv .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -419,15 +419,15 @@ as clean a dataset as possible at the time of a database lock.</p>
   vertical-align: top;
 }
 
-#gnqynwcxnd .gt_row_group_first td {
+#xxkjmsrbiv .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#gnqynwcxnd .gt_row_group_first th {
+#xxkjmsrbiv .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#gnqynwcxnd .gt_summary_row {
+#xxkjmsrbiv .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -437,16 +437,16 @@ as clean a dataset as possible at the time of a database lock.</p>
   padding-right: 5px;
 }
 
-#gnqynwcxnd .gt_first_summary_row {
+#xxkjmsrbiv .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#gnqynwcxnd .gt_first_summary_row.thick {
+#xxkjmsrbiv .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#gnqynwcxnd .gt_last_summary_row {
+#xxkjmsrbiv .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -456,7 +456,7 @@ as clean a dataset as possible at the time of a database lock.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#gnqynwcxnd .gt_grand_summary_row {
+#xxkjmsrbiv .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -466,7 +466,7 @@ as clean a dataset as possible at the time of a database lock.</p>
   padding-right: 5px;
 }
 
-#gnqynwcxnd .gt_first_grand_summary_row {
+#xxkjmsrbiv .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -476,7 +476,7 @@ as clean a dataset as possible at the time of a database lock.</p>
   border-top-color: #D3D3D3;
 }
 
-#gnqynwcxnd .gt_last_grand_summary_row_top {
+#xxkjmsrbiv .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -486,11 +486,11 @@ as clean a dataset as possible at the time of a database lock.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#gnqynwcxnd .gt_striped {
+#xxkjmsrbiv .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#gnqynwcxnd .gt_table_body {
+#xxkjmsrbiv .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -499,7 +499,7 @@ as clean a dataset as possible at the time of a database lock.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#gnqynwcxnd .gt_footnotes {
+#xxkjmsrbiv .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -513,7 +513,7 @@ as clean a dataset as possible at the time of a database lock.</p>
   border-right-color: #D3D3D3;
 }
 
-#gnqynwcxnd .gt_footnote {
+#xxkjmsrbiv .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -522,7 +522,7 @@ as clean a dataset as possible at the time of a database lock.</p>
   padding-right: 5px;
 }
 
-#gnqynwcxnd .gt_sourcenotes {
+#xxkjmsrbiv .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -536,7 +536,7 @@ as clean a dataset as possible at the time of a database lock.</p>
   border-right-color: #D3D3D3;
 }
 
-#gnqynwcxnd .gt_sourcenote {
+#xxkjmsrbiv .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -544,63 +544,63 @@ as clean a dataset as possible at the time of a database lock.</p>
   padding-right: 5px;
 }
 
-#gnqynwcxnd .gt_left {
+#xxkjmsrbiv .gt_left {
   text-align: left;
 }
 
-#gnqynwcxnd .gt_center {
+#xxkjmsrbiv .gt_center {
   text-align: center;
 }
 
-#gnqynwcxnd .gt_right {
+#xxkjmsrbiv .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#gnqynwcxnd .gt_font_normal {
+#xxkjmsrbiv .gt_font_normal {
   font-weight: normal;
 }
 
-#gnqynwcxnd .gt_font_bold {
+#xxkjmsrbiv .gt_font_bold {
   font-weight: bold;
 }
 
-#gnqynwcxnd .gt_font_italic {
+#xxkjmsrbiv .gt_font_italic {
   font-style: italic;
 }
 
-#gnqynwcxnd .gt_super {
+#xxkjmsrbiv .gt_super {
   font-size: 65%;
 }
 
-#gnqynwcxnd .gt_footnote_marks {
+#xxkjmsrbiv .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#gnqynwcxnd .gt_asterisk {
+#xxkjmsrbiv .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#gnqynwcxnd .gt_indent_1 {
+#xxkjmsrbiv .gt_indent_1 {
   text-indent: 5px;
 }
 
-#gnqynwcxnd .gt_indent_2 {
+#xxkjmsrbiv .gt_indent_2 {
   text-indent: 10px;
 }
 
-#gnqynwcxnd .gt_indent_3 {
+#xxkjmsrbiv .gt_indent_3 {
   text-indent: 15px;
 }
 
-#gnqynwcxnd .gt_indent_4 {
+#xxkjmsrbiv .gt_indent_4 {
   text-indent: 20px;
 }
 
-#gnqynwcxnd .gt_indent_5 {
+#xxkjmsrbiv .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -728,23 +728,23 @@ as clean a dataset as possible at the time of a database lock.</p>
 <span>    columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1e-06"</span>, <span class="st">"1e-12"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html" class="external-link">fmt_number</a></span><span class="op">(</span>col <span class="op">=</span> <span class="fl">4</span><span class="op">:</span><span class="fl">5</span>, decimals <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span></code></pre></div>
-<div id="ornqrurbzd" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#ornqrurbzd table {
+<div id="psmclsdvzx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#psmclsdvzx table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#ornqrurbzd thead, #ornqrurbzd tbody, #ornqrurbzd tfoot, #ornqrurbzd tr, #ornqrurbzd td, #ornqrurbzd th {
+#psmclsdvzx thead, #psmclsdvzx tbody, #psmclsdvzx tfoot, #psmclsdvzx tr, #psmclsdvzx td, #psmclsdvzx th {
   border-style: none;
 }
 
-#ornqrurbzd p {
+#psmclsdvzx p {
   margin: 0;
   padding: 0;
 }
 
-#ornqrurbzd .gt_table {
+#psmclsdvzx .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -770,12 +770,12 @@ as clean a dataset as possible at the time of a database lock.</p>
   border-left-color: #D3D3D3;
 }
 
-#ornqrurbzd .gt_caption {
+#psmclsdvzx .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#ornqrurbzd .gt_title {
+#psmclsdvzx .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -787,7 +787,7 @@ as clean a dataset as possible at the time of a database lock.</p>
   border-bottom-width: 0;
 }
 
-#ornqrurbzd .gt_subtitle {
+#psmclsdvzx .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -799,7 +799,7 @@ as clean a dataset as possible at the time of a database lock.</p>
   border-top-width: 0;
 }
 
-#ornqrurbzd .gt_heading {
+#psmclsdvzx .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -811,13 +811,13 @@ as clean a dataset as possible at the time of a database lock.</p>
   border-right-color: #D3D3D3;
 }
 
-#ornqrurbzd .gt_bottom_border {
+#psmclsdvzx .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#ornqrurbzd .gt_col_headings {
+#psmclsdvzx .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -832,7 +832,7 @@ as clean a dataset as possible at the time of a database lock.</p>
   border-right-color: #D3D3D3;
 }
 
-#ornqrurbzd .gt_col_heading {
+#psmclsdvzx .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -852,7 +852,7 @@ as clean a dataset as possible at the time of a database lock.</p>
   overflow-x: hidden;
 }
 
-#ornqrurbzd .gt_column_spanner_outer {
+#psmclsdvzx .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -864,15 +864,15 @@ as clean a dataset as possible at the time of a database lock.</p>
   padding-right: 4px;
 }
 
-#ornqrurbzd .gt_column_spanner_outer:first-child {
+#psmclsdvzx .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#ornqrurbzd .gt_column_spanner_outer:last-child {
+#psmclsdvzx .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#ornqrurbzd .gt_column_spanner {
+#psmclsdvzx .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -884,11 +884,11 @@ as clean a dataset as possible at the time of a database lock.</p>
   width: 100%;
 }
 
-#ornqrurbzd .gt_spanner_row {
+#psmclsdvzx .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#ornqrurbzd .gt_group_heading {
+#psmclsdvzx .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -914,7 +914,7 @@ as clean a dataset as possible at the time of a database lock.</p>
   text-align: left;
 }
 
-#ornqrurbzd .gt_empty_group_heading {
+#psmclsdvzx .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -929,15 +929,15 @@ as clean a dataset as possible at the time of a database lock.</p>
   vertical-align: middle;
 }
 
-#ornqrurbzd .gt_from_md > :first-child {
+#psmclsdvzx .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#ornqrurbzd .gt_from_md > :last-child {
+#psmclsdvzx .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#ornqrurbzd .gt_row {
+#psmclsdvzx .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -956,7 +956,7 @@ as clean a dataset as possible at the time of a database lock.</p>
   overflow-x: hidden;
 }
 
-#ornqrurbzd .gt_stub {
+#psmclsdvzx .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -969,7 +969,7 @@ as clean a dataset as possible at the time of a database lock.</p>
   padding-right: 5px;
 }
 
-#ornqrurbzd .gt_stub_row_group {
+#psmclsdvzx .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -983,15 +983,15 @@ as clean a dataset as possible at the time of a database lock.</p>
   vertical-align: top;
 }
 
-#ornqrurbzd .gt_row_group_first td {
+#psmclsdvzx .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#ornqrurbzd .gt_row_group_first th {
+#psmclsdvzx .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#ornqrurbzd .gt_summary_row {
+#psmclsdvzx .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1001,16 +1001,16 @@ as clean a dataset as possible at the time of a database lock.</p>
   padding-right: 5px;
 }
 
-#ornqrurbzd .gt_first_summary_row {
+#psmclsdvzx .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#ornqrurbzd .gt_first_summary_row.thick {
+#psmclsdvzx .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#ornqrurbzd .gt_last_summary_row {
+#psmclsdvzx .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1020,7 +1020,7 @@ as clean a dataset as possible at the time of a database lock.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#ornqrurbzd .gt_grand_summary_row {
+#psmclsdvzx .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1030,7 +1030,7 @@ as clean a dataset as possible at the time of a database lock.</p>
   padding-right: 5px;
 }
 
-#ornqrurbzd .gt_first_grand_summary_row {
+#psmclsdvzx .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1040,7 +1040,7 @@ as clean a dataset as possible at the time of a database lock.</p>
   border-top-color: #D3D3D3;
 }
 
-#ornqrurbzd .gt_last_grand_summary_row_top {
+#psmclsdvzx .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1050,11 +1050,11 @@ as clean a dataset as possible at the time of a database lock.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#ornqrurbzd .gt_striped {
+#psmclsdvzx .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#ornqrurbzd .gt_table_body {
+#psmclsdvzx .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1063,7 +1063,7 @@ as clean a dataset as possible at the time of a database lock.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#ornqrurbzd .gt_footnotes {
+#psmclsdvzx .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1077,7 +1077,7 @@ as clean a dataset as possible at the time of a database lock.</p>
   border-right-color: #D3D3D3;
 }
 
-#ornqrurbzd .gt_footnote {
+#psmclsdvzx .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1086,7 +1086,7 @@ as clean a dataset as possible at the time of a database lock.</p>
   padding-right: 5px;
 }
 
-#ornqrurbzd .gt_sourcenotes {
+#psmclsdvzx .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1100,7 +1100,7 @@ as clean a dataset as possible at the time of a database lock.</p>
   border-right-color: #D3D3D3;
 }
 
-#ornqrurbzd .gt_sourcenote {
+#psmclsdvzx .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1108,63 +1108,63 @@ as clean a dataset as possible at the time of a database lock.</p>
   padding-right: 5px;
 }
 
-#ornqrurbzd .gt_left {
+#psmclsdvzx .gt_left {
   text-align: left;
 }
 
-#ornqrurbzd .gt_center {
+#psmclsdvzx .gt_center {
   text-align: center;
 }
 
-#ornqrurbzd .gt_right {
+#psmclsdvzx .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#ornqrurbzd .gt_font_normal {
+#psmclsdvzx .gt_font_normal {
   font-weight: normal;
 }
 
-#ornqrurbzd .gt_font_bold {
+#psmclsdvzx .gt_font_bold {
   font-weight: bold;
 }
 
-#ornqrurbzd .gt_font_italic {
+#psmclsdvzx .gt_font_italic {
   font-style: italic;
 }
 
-#ornqrurbzd .gt_super {
+#psmclsdvzx .gt_super {
   font-size: 65%;
 }
 
-#ornqrurbzd .gt_footnote_marks {
+#psmclsdvzx .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#ornqrurbzd .gt_asterisk {
+#psmclsdvzx .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#ornqrurbzd .gt_indent_1 {
+#psmclsdvzx .gt_indent_1 {
   text-indent: 5px;
 }
 
-#ornqrurbzd .gt_indent_2 {
+#psmclsdvzx .gt_indent_2 {
   text-indent: 10px;
 }
 
-#ornqrurbzd .gt_indent_3 {
+#psmclsdvzx .gt_indent_3 {
   text-indent: 15px;
 }
 
-#ornqrurbzd .gt_indent_4 {
+#psmclsdvzx .gt_indent_4 {
   text-indent: 20px;
 }
 
-#ornqrurbzd .gt_indent_5 {
+#psmclsdvzx .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
