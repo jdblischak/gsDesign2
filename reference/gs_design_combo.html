@@ -201,9 +201,7 @@ default of <code>FALSE</code> is recommended.</p></dd>
 <span class="r-in"><span>  ratio <span class="op">=</span> <span class="fl">1</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># -------------------------#</span></span></span>
-<span class="r-in"><span><span class="co">#       example 1          #</span></span></span>
-<span class="r-in"><span><span class="co"># ------------------------ #</span></span></span>
+<span class="r-in"><span><span class="co"># Example 1 ----</span></span></span>
 <span class="r-in"><span><span class="co"># User-defined boundary</span></span></span>
 <span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="fu">gs_design_combo</span><span class="op">(</span></span></span>
@@ -231,25 +229,23 @@ default of <code>FALSE</code> is recommended.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $bounds</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   analysis bound probability probability0          z    nominal p</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1        1 upper  0.00205705 0.0001035057  3.7103029 0.0001035057</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2        1 lower  0.14069272 0.4066436377 -0.2361874 0.5933563623</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3        2 upper  0.46913600 0.0060406872  2.5114070 0.0060125477</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4        2 lower  0.18558163 0.8846152138  1.1703638 0.1209273043</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5        3 upper  0.79999890 0.0254950453  1.9929702 0.0231323552</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6        3 lower  0.20000125 0.9745077388  1.9929702 0.0231323552</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        1 upper 0.002057017 0.0001035057  3.7103029 0.0001035057</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2        1 lower 0.140693880 0.4066436377 -0.2361874 0.5933563623</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3        2 upper 0.469130180 0.0060406872  2.5114070 0.0060125477</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4        2 lower 0.185584155 0.8846152138  1.1703638 0.1209273043</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5        3 upper 0.800000437 0.0254934921  1.9929702 0.0231323552</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6        3 lower 0.199996384 0.9745073958  1.9929702 0.0231323552</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $analysis</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   analysis time        n     event event_frac       ahr</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1        1   12 444.8095  95.53997  0.3241690 0.8418858</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2        2   24 444.8095 219.09835  0.7434051 0.7164215</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3        3   36 444.8095 294.72268  1.0000000 0.6831740</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   analysis time       n     event event_frac       ahr</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        1   12 444.804  95.53879  0.3241690 0.8418858</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2        2   24 444.804 219.09565  0.7434051 0.7164215</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3        3   36 444.804 294.71904  1.0000000 0.6831740</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "non_binding" "combo"       "gs_design"   "list"       </span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
-<span class="r-in"><span><span class="co"># -------------------------#</span></span></span>
-<span class="r-in"><span><span class="co">#       example 2          #</span></span></span>
-<span class="r-in"><span><span class="co"># ------------------------ #</span></span></span>
+<span class="r-in"><span><span class="co"># Example 2 ----</span></span></span>
 <span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="co"># Boundary derived by spending function</span></span></span>
 <span class="r-in"><span><span class="fu">gs_design_combo</span><span class="op">(</span></span></span>
@@ -280,18 +276,18 @@ default of <code>FALSE</code> is recommended.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $bounds</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   analysis bound  probability probability0          z    nominal p</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1        1 upper 2.087351e-08 3.299865e-10  6.1753973 3.299865e-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2        1 lower 3.269497e-04 3.302671e-03 -2.7161127 9.966973e-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3        2 upper 2.203008e-01 2.565830e-03  2.7986508 2.565830e-03</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4        2 lower 8.468136e-02 7.431354e-01  0.6530394 2.568654e-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5        3 upper 7.999995e-01 2.373084e-02  2.0971497 1.799016e-02</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6        3 lower 1.999911e-01 9.762930e-01  2.0970982 1.799244e-02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        1 upper 2.087765e-08 3.299865e-10  6.1753973 3.299865e-10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2        1 lower 3.269503e-04 3.303026e-03 -2.7160772 9.966970e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3        2 upper 2.203313e-01 2.565830e-03  2.7986508 2.565830e-03</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4        2 lower 8.468160e-02 7.431690e-01  0.6531436 2.568319e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5        3 upper 8.000010e-01 2.371293e-02  2.0972878 1.798405e-02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6        3 lower 1.999864e-01 9.762835e-01  2.0972230 1.798692e-02</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $analysis</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   analysis time        n     event event_frac       ahr</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1        1   12 301.2269  64.70009  0.3241690 0.8418858</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2        2   24 301.2269 148.37437  0.7434051 0.7164215</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3        3   36 301.2269 199.58750  1.0000000 0.6831740</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        1   12 301.2574  64.70664  0.3241690 0.8418858</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2        2   24 301.2574 148.38939  0.7434051 0.7164215</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3        3   36 301.2574 199.60770  1.0000000 0.6831740</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "non_binding" "combo"       "gs_design"   "list"       </span>
