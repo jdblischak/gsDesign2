@@ -4,6 +4,9 @@
 \alias{to_integer}
 \alias{to_integer.fixed_design}
 \alias{to_integer.gs_design}
+\alias{to_integer.ahr}
+\alias{to_integer.rd}
+\alias{to_integer.wlr}
 \title{Rounds sample size to an even number for equal design}
 \usage{
 to_integer(x, ...)
@@ -11,6 +14,12 @@ to_integer(x, ...)
 \method{to_integer}{fixed_design}(x, sample_size = TRUE, ...)
 
 \method{to_integer}{gs_design}(x, sample_size = TRUE, ...)
+
+\method{to_integer}{ahr}(x, sample_size = TRUE, ...)
+
+\method{to_integer}{rd}(x, sample_size = TRUE, ...)
+
+\method{to_integer}{wlr}(x, sample_size = TRUE, ...)
 }
 \arguments{
 \item{x}{An object returned by fixed_design_xxx() and gs_design_xxx().}
