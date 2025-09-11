@@ -260,7 +260,7 @@ summary.gs_design <- function(object,
   x <- object
   x_bound <- x$bound
   x_analysis <- x$analysis
-  method <- get_method(x, c("ahr", "wlr", "combo", "rd"))
+  method <- x$design
 
   # Prepare the analysis summary row ----
   # get the
@@ -338,9 +338,9 @@ summary.gs_design <- function(object,
   # Set the decimals to display ----
   for (j in col_vars) output[[j]] <- round2(output[[j]], col_decimals[j])
 
-  output <- add_class(
-    output, method, intersect("non_binding", class(object)), method, "gs_design"
-  )
+  output <- add_class(output, "gs_design_summary")
+  attr(output, "binding") <- attr(x, "binding")
+  attr(output, "design") <- x$design
 
   # Save the full alpha as an attribute of the output summary table
   # Use input$alpha when given power to calculate sample size

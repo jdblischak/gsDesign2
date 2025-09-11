@@ -332,9 +332,9 @@ to_integer.fixed_design <- function(x, round_up_final = TRUE, ratio = x$input$ra
 #' gsDesign::sfLDOF(alpha = 0.025, t = 18 / 30)$spend
 #' }
 to_integer.gs_design <- function(x, round_up_final = TRUE, ratio = x$input$ratio, ...) {
-  is_ahr <- inherits(x, "ahr")
-  is_wlr <- inherits(x, "wlr")
-  is_rd  <- inherits(x, "rd")
+  is_ahr <- x$design == "ahr"
+  is_wlr <- x$design == "wlr"
+  is_rd  <- x$design == "rd"
   if (!(is_ahr || is_wlr || is_rd)) {
     message("The input object is not applicable to get an integer sample size.")
     return(x)

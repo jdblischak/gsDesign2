@@ -3,7 +3,7 @@
 \name{as_rtf}
 \alias{as_rtf}
 \alias{as_rtf.fixed_design_summary}
-\alias{as_rtf.gs_design}
+\alias{as_rtf.gs_design_summary}
 \title{Write summary table of a fixed or group sequential design object to an RTF file}
 \usage{
 as_rtf(x, ...)
@@ -19,7 +19,7 @@ as_rtf(x, ...)
   ...
 )
 
-\method{as_rtf}{gs_design}(
+\method{as_rtf}{gs_design_summary}(
   x,
   title = NULL,
   subtitle = NULL,

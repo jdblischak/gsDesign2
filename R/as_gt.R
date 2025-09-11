@@ -91,8 +91,6 @@ as_gt.fixed_design_summary <- function(x, title = NULL, footnote = NULL, ...) {
   return(ans)
 }
 
-get_method <- function(x, methods) intersect(methods, class(x))[1]
-
 #' @rdname as_gt
 #'
 #' @param title A string to specify the title of the gt table.
@@ -202,7 +200,7 @@ get_method <- function(x, methods) intersect(methods, class(x))[1]
 #'   summary() |>
 #'   as_gt(display_columns = c("Analysis", "Bound", "Nominal p", "Z", "Probability"))
 #' }
-as_gt.gs_design <- function(
+as_gt.gs_design_summary <- function(
     x,
     title = NULL,
     subtitle = NULL,
@@ -314,7 +312,7 @@ gsd_footnote <- function(method, columns) {
 # footnote for non-binding designs
 gsd_footnote_nb <- function(x, x_alpha) {
   full_alpha <- attr(x, "full_alpha")
-  if (!inherits(x, "non_binding") || x_alpha >= full_alpha) return()
+  if (attr(x, "binding") || x_alpha >= full_alpha) return()
   a1 <- format(x_alpha, scientific = FALSE)
   a2 <- format(full_alpha, scientific = FALSE)
   a3 <- format(full_alpha - x_alpha, scientific = FALSE)
@@ -346,7 +344,7 @@ gsd_parts <- function(
   x, title, subtitle, spannersub, footnote, bound, columns, inf_bound,
   transform = identity
 ) {
-  method <- intersect(c("ahr", "wlr", "combo", "rd"), class(x))[1]
+  method <- attr(x, "design")
   if (!inf_bound) x <- filter(x, !is.infinite(Z))
   # `x` needs a custom transformation in as_rtf()
   x2 <- transform(x)

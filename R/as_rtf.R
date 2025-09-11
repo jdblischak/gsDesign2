@@ -267,7 +267,7 @@ check_rel_width <- function(width, n_col) {
 #'     file = tempfile(fileext = ".rtf")
 #'   )
 #' }
-as_rtf.gs_design <- function(
+as_rtf.gs_design_summary <- function(
     x,
     title = NULL,
     subtitle = NULL,
