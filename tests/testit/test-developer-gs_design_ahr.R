@@ -363,11 +363,11 @@ assert("Harm bound is not provided when it is a fixed design", {
   x1 <- gs_power_npe(theta = 0.5, theta1 = 0.5, theta0 = 0,
                       info = 10, info1 = 10, info0 = 11,
                       upper = gs_b, upar = qnorm(1 - 0.025), test_upper = TRUE,
-                      lower = gs_b, lpar = -Inf, test_lower = FALSE)
+                      lower = gs_b, lpar = -Inf, test_lower = FALSE)$analysis
   x2 <- gs_design_npe(theta = 0.5, theta1 = 0.5, theta0 = 0,
                       info = 10, info1 = 10, info0 = 11,
                       upper = gs_b, upar = qnorm(1 - 0.025), test_upper = TRUE,
-                      lower = gs_b, lpar = -Inf, test_lower = FALSE)
+                      lower = gs_b, lpar = -Inf, test_lower = FALSE)$analysis
   x3 <- gs_design_ahr(analysis_time = 36, info_frac = NULL,
                       upper = gs_b, upar = qnorm(1 - 0.025), test_upper = TRUE,
                       lower = gs_b, lpar = -Inf, test_lower = FALSE)

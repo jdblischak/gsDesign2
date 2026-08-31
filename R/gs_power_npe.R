@@ -164,7 +164,7 @@
 #'
 #' # Example 6 ----
 #' # Default of gs_power_npe (single analysis; Type I error controlled)
-#' gs_power_npe(theta = 0) |> dplyr::filter(bound == "upper")
+#' gs_power_npe(theta = 0)$analysis |> dplyr::filter(bound == "upper")
 #'
 #' # Example 7 ----
 #' # gs_power_npe with fixed bound
@@ -183,7 +183,7 @@
 #'   info = (1:3) * 40,
 #'   upar = gsDesign::gsDesign(k = 3, sfu = gsDesign::sfLDOF)$upper$bound,
 #'   lpar = rep(-Inf, 3)
-#' ) |>
+#' )$analysis |>
 #'   dplyr::filter(bound == "upper")
 #'
 #' # Example 8 ----
@@ -253,8 +253,8 @@
 #'   theta = c(.1, .2, .3),
 #'   info = (1:3) * 40,
 #'   binding = TRUE,
-#'   upar = (x |> dplyr::filter(bound == "upper"))$z,
-#'   lpar = -(x |> dplyr::filter(bound == "upper"))$z
+#'   upar = (x$analysis |> dplyr::filter(bound == "upper"))$z,
+#'   lpar = -(x$analysis |> dplyr::filter(bound == "upper"))$z
 #' )
 #'
 #' # Example 11 ----
@@ -294,7 +294,7 @@ gs_power_npe <- function(theta = .1, theta0 = 0, theta1 = theta, # 3 theta
   if (n_analysis == 1 && test_harm) {
     stop("gs_power_npe() harm bound cannot be tested if there is only one analysis.")
   }
-  
+
   theta  <- check_theta(theta,  n_analysis)
   theta0 <- check_theta(theta0, n_analysis)
   theta1 <- check_theta(theta1, n_analysis)
@@ -475,7 +475,7 @@ gs_power_npe <- function(theta = .1, theta0 = 0, theta1 = theta, # 3 theta
   }
 
   if (all(!test_harm)) {
-    ans <- data.frame(
+    analysis <- data.frame(
       analysis = rep(1:n_analysis, 2),
       bound = c(rep("upper", n_analysis), rep("lower", n_analysis)),
       z = c(b, a),
@@ -493,7 +493,7 @@ gs_power_npe <- function(theta = .1, theta0 = 0, theta1 = theta, # 3 theta
     harm_z[inactive_lower] <- -Inf
     harm_prob[inactive_lower] <- 0
 
-    ans <- data.frame(
+    analysis <- data.frame(
       analysis = rep(1:n_analysis, 3),
       bound = c(rep("upper", n_analysis), rep("lower", n_analysis), rep("harm", n_analysis)),
       z = c(b, a, harm_z),
@@ -506,6 +506,28 @@ gs_power_npe <- function(theta = .1, theta0 = 0, theta1 = theta, # 3 theta
       info1 = rep(info1, 3)
     )
   }
+
+  input <- list(
+    theta = theta, theta0 = theta0, theta1 = theta1, info = info, info0 = info0,
+    info1 = info1, info_scale = info_scale, upper = upper, upar = upar,
+    lower = lower, lpar =lpar, test_upper = test_upper, test_lower = test_lower,
+    binding = binding, harm = harm, hpar = hpar, test_harm = test_harm, r = r,
+    tol = tol
+  )
+
+  ans <- structure(
+    list(
+      design = "npe",
+      input = input,
+      enroll_rate = NULL,
+      fail_rate = NULL,
+      bound = NULL,
+      analysis = analysis
+    ),
+    class = "gs_design",
+    binding = binding,
+    uninteger_is_from = "gs_power_npe"
+  )
 
   return(ans)
 }

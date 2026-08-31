@@ -7,14 +7,14 @@ assert("verify by gs_power_npe", {
     upar = list(sf = gsDesign::sfLDOF, total_spend = 0.025, param = NULL, timing = NULL),
     lower = gs_spending_bound,
     lpar = list(sf = gsDesign::sfLDOF, total_spend = 0.025, param = NULL, timing = NULL), binding = TRUE
-  )
+  )$analysis
   # The power is 0.9. If we re-use these bounds under alternate hypothesis, then we can get a power close to 0.9.
   y <- gs_power_npe(
     theta = c(.1, .2, .3), info = (1:3) * 40,
     upper = gs_b, upar = (x |> dplyr::filter(bound == "upper"))$z,
     lower = gs_b, lpar = -(x |> dplyr::filter(bound == "upper"))$z,
     binding = TRUE # Always use binding = TRUE for power calculations
-  )
+  )$analysis
   (all.equal(y$probability[y$analysis == 3 & y$bound == "upper"], 1 - beta, tolerance = 0.003))
   # old version
   x <- gs_design_npe_(
@@ -43,16 +43,16 @@ assert("examples in spec - Lachin book p71", {
   info <- 1 / (pc * (1 - pc) * 2 + pe * (1 - pe) * 2)
   # Result should round up to next even number = 652
   # Divide information needed under H1 by information per patient added
-  x1_a <- gs_design_npe(theta = pe - pc, info = info, info0 = info0, info_scale = "h0_info") |>
+  x1_a <- gs_design_npe(theta = pe - pc, info = info, info0 = info0, info_scale = "h0_info")$analysis |>
     dplyr::select(-c(info_frac, probability0, info1))
-  x1_b <- gs_design_npe(theta = pe - pc, info = info, info0 = info0, info_scale = "h1_info") |>
+  x1_b <- gs_design_npe(theta = pe - pc, info = info, info0 = info0, info_scale = "h1_info")$analysis |>
     dplyr::select(-c(info_frac, probability0, info1))
-  x1_c <- gs_design_npe(theta = pe - pc, info = info, info0 = info0, info_scale = "h0_h1_info") |>
+  x1_c <- gs_design_npe(theta = pe - pc, info = info, info0 = info0, info_scale = "h0_h1_info")$analysis |>
     dplyr::select(-c(info_frac, probability0, info1))
   x2 <- gs_design_npe_(theta = pe - pc, info = info, info0 = info0) |>
     dplyr::rename(analysis = Analysis, bound = Bound, z = Z, probability = Probability) |>
     dplyr::mutate(bound = tolower(bound))
-  (x1_c %==% x2)
+  (x1_c %==% as.data.frame(x2))
 })
 
 assert("fixed design with 3 equal info", {
@@ -61,7 +61,7 @@ assert("fixed design with 3 equal info", {
     info = (1:3) * 80, info_scale = "h0_info",
     upper = gs_b, upar = gsDesign::gsDesign(k = 3, sfu = gsDesign::sfLDOF)$upper$bound,
     lower = gs_b, lpar = c(-1, 0, 0)
-  ) |>
+  )$analysis |>
     dplyr::select(-c(info_frac, probability0, info1)) |>
     dplyr::arrange(analysis, bound)
   x1_b <- gs_design_npe(
@@ -69,7 +69,7 @@ assert("fixed design with 3 equal info", {
     info = (1:3) * 80, info_scale = "h1_info",
     upper = gs_b, upar = gsDesign::gsDesign(k = 3, sfu = gsDesign::sfLDOF)$upper$bound,
     lower = gs_b, lpar = c(-1, 0, 0)
-  ) |>
+  )$analysis |>
     dplyr::select(-c(info_frac, probability0, info1)) |>
     dplyr::arrange(analysis, bound)
   x1_c <- gs_design_npe(
@@ -77,7 +77,7 @@ assert("fixed design with 3 equal info", {
     info = (1:3) * 80, info_scale = "h0_h1_info",
     upper = gs_b, upar = gsDesign::gsDesign(k = 3, sfu = gsDesign::sfLDOF)$upper$bound,
     lower = gs_b, lpar = c(-1, 0, 0)
-  ) |>
+  )$analysis |>
     dplyr::select(-c(info_frac, probability0, info1)) |>
     dplyr::arrange(analysis, bound)
   x2 <- gs_design_npe_(
@@ -99,7 +99,7 @@ assert("fixed design with 3 unequal info", {
     info = (1:3) * 80, info0 = (1:3) * 90 + 10, info1 = (1:3) * 70 - 5, info_scale = "h0_info",
     upper = gs_b, upar = gsDesign::gsDesign(k = 3, sfu = gsDesign::sfLDOF)$upper$bound,
     lower = gs_b, lpar = c(-1, 0, 0)
-  ) |>
+  )$analysis |>
     dplyr::select(-c(info_frac, probability0, info1)) |>
     dplyr::arrange(analysis, bound)
   x1_b <- gs_design_npe(
@@ -107,7 +107,7 @@ assert("fixed design with 3 unequal info", {
     info = (1:3) * 80, info0 = (1:3) * 90 + 10, info1 = (1:3) * 70 - 5, info_scale = "h1_info",
     upper = gs_b, upar = gsDesign::gsDesign(k = 3, sfu = gsDesign::sfLDOF)$upper$bound,
     lower = gs_b, lpar = c(-1, 0, 0)
-  ) |>
+  )$analysis |>
     dplyr::select(-c(info_frac, probability0, info1)) |>
     dplyr::arrange(analysis, bound)
   x1_c <- gs_design_npe(
@@ -115,7 +115,7 @@ assert("fixed design with 3 unequal info", {
     info = (1:3) * 80, info0 = (1:3) * 90 + 10, info1 = (1:3) * 70 - 5, info_scale = "h0_h1_info",
     upper = gs_b, upar = gsDesign::gsDesign(k = 3, sfu = gsDesign::sfLDOF)$upper$bound,
     lower = gs_b, lpar = c(-1, 0, 0)
-  ) |>
+  )$analysis |>
     dplyr::select(-c(info_frac, probability0, info1)) |>
     dplyr::arrange(analysis, bound)
   x2 <- gs_design_npe_(
@@ -138,7 +138,7 @@ assert("futility at IA1; efficacy only at IA2 +FA", {
     upper = gs_spending_bound, upar = list(sf = gsDesign::sfLDOF, total_spend = 0.025, param = NULL, timing = NULL),
     lower = gs_b, lpar = c(-1, -Inf, -Inf),
     test_upper = c(FALSE, TRUE, TRUE)
-  ) |>
+  )$analysis |>
     dplyr::select(-c(info_frac, probability0, info1)) |>
     dplyr::arrange(analysis, bound)
   x1_b <- gs_design_npe(
@@ -147,7 +147,7 @@ assert("futility at IA1; efficacy only at IA2 +FA", {
     upper = gs_spending_bound, upar = list(sf = gsDesign::sfLDOF, total_spend = 0.025, param = NULL, timing = NULL),
     lower = gs_b, lpar = c(-1, -Inf, -Inf),
     test_upper = c(FALSE, TRUE, TRUE)
-  ) |>
+  )$analysis |>
     dplyr::select(-c(info_frac, probability0, info1)) |>
     dplyr::arrange(analysis, bound)
   x1_c <- gs_design_npe(
@@ -156,7 +156,7 @@ assert("futility at IA1; efficacy only at IA2 +FA", {
     upper = gs_spending_bound, upar = list(sf = gsDesign::sfLDOF, total_spend = 0.025, param = NULL, timing = NULL),
     lower = gs_b, lpar = c(-1, -Inf, -Inf),
     test_upper = c(FALSE, TRUE, TRUE)
-  ) |>
+  )$analysis |>
     dplyr::select(-c(info_frac, probability0, info1)) |>
     dplyr::arrange(analysis, bound)
   x2 <- gs_design_npe_(
@@ -181,7 +181,7 @@ assert("spending bounds", {
     upar = list(sf = gsDesign::sfLDOF, total_spend = 0.025, param = NULL, timing = NULL),
     lower = gs_spending_bound,
     lpar = list(sf = gsDesign::sfHSD, total_spend = 0.1, param = -1, timing = NULL)
-  ) |>
+  )$analysis |>
     dplyr::select(analysis, bound, z, probability, theta, info, info0, info1) |>
     dplyr::arrange(analysis, bound)
   x1_b <- gs_design_npe(
@@ -191,7 +191,7 @@ assert("spending bounds", {
     upar = list(sf = gsDesign::sfLDOF, total_spend = 0.025, param = NULL, timing = NULL),
     lower = gs_spending_bound,
     lpar = list(sf = gsDesign::sfHSD, total_spend = 0.1, param = -1, timing = NULL)
-  ) |>
+  )$analysis |>
     dplyr::select(analysis, bound, z, probability, theta, info, info0, info1) |>
     dplyr::arrange(analysis, bound)
   x1_c <- gs_design_npe(
@@ -201,7 +201,7 @@ assert("spending bounds", {
     upar = list(sf = gsDesign::sfLDOF, total_spend = 0.025, param = NULL, timing = NULL),
     lower = gs_spending_bound,
     lpar = list(sf = gsDesign::sfHSD, total_spend = 0.1, param = -1, timing = NULL)
-  ) |>
+  )$analysis |>
     dplyr::select(analysis, bound, z, probability, theta, info, info0, info1) |>
     dplyr::arrange(analysis, bound)
   x2 <- gs_design_npe_(
@@ -217,7 +217,7 @@ assert("spending bounds", {
     dplyr::select(analysis, bound, z, probability, theta, info, info0, info1) |>
     dplyr::arrange(analysis, bound)
   legacy_rows <- x1_c$analysis < 3 | x1_c$bound != "lower"
-  (as.data.frame(x1_c[legacy_rows, ]) %==% as.data.frame(x2[legacy_rows, ]))
+  (as.data.frame(x1_c[legacy_rows, ]) %==% as.data.frame(x2)[legacy_rows, ])
   (x1_c$z[x1_c$analysis == 3 & x1_c$bound == "lower"] ==
     x1_c$z[x1_c$analysis == 3 & x1_c$bound == "upper"])
 })
@@ -231,7 +231,7 @@ assert("2-sided symmetric spend", {
     upar = list(sf = gsDesign::sfLDOF, total_spend = 0.025, param = NULL, timing = NULL),
     lower = gs_spending_bound,
     lpar = list(sf = gsDesign::sfLDOF, total_spend = 0.025, param = NULL, timing = NULL)
-  ) |>
+  )$analysis |>
     dplyr::select(analysis, bound, z, probability, theta, info, info0, info1) |>
     dplyr::arrange(analysis, bound)
   x1_b <- gs_design_npe(
@@ -242,7 +242,7 @@ assert("2-sided symmetric spend", {
     upar = list(sf = gsDesign::sfLDOF, total_spend = 0.025, param = NULL, timing = NULL),
     lower = gs_spending_bound,
     lpar = list(sf = gsDesign::sfLDOF, total_spend = 0.025, param = NULL, timing = NULL)
-  ) |>
+  )$analysis |>
     dplyr::select(analysis, bound, z, probability, theta, info, info0, info1) |>
     dplyr::arrange(analysis, bound)
   x1_c <- gs_design_npe(
@@ -253,7 +253,7 @@ assert("2-sided symmetric spend", {
     upar = list(sf = gsDesign::sfLDOF, total_spend = 0.025, param = NULL, timing = NULL),
     lower = gs_spending_bound,
     lpar = list(sf = gsDesign::sfLDOF, total_spend = 0.025, param = NULL, timing = NULL)
-  ) |>
+  )$analysis |>
     dplyr::select(analysis, bound, z, probability, theta, info, info0, info1) |>
     dplyr::arrange(analysis, bound)
   x2 <- gs_design_npe_(
@@ -270,7 +270,7 @@ assert("2-sided symmetric spend", {
     dplyr::select(analysis, bound, z, probability, theta, info, info0, info1) |>
     dplyr::arrange(analysis, bound)
   legacy_rows <- x1_c$analysis < 3 | x1_c$bound != "lower"
-  (as.data.frame(x1_c[legacy_rows, ]) %==% as.data.frame(x2[legacy_rows, ]))
+  (as.data.frame(x1_c[legacy_rows, ]) %==% as.data.frame(x2)[legacy_rows, ])
   (x1_c$z[x1_c$analysis == 3 & x1_c$bound == "lower"] ==
     x1_c$z[x1_c$analysis == 3 & x1_c$bound == "upper"])
 })
@@ -292,7 +292,7 @@ assert("Comparison with gsDesign when test.type = 4", {
   effect <- 0.5
   standard_deviation <- 1
 
-  fixed_normal <- nNormal(
+  fixed_normal <- gsDesign::nNormal(
     delta1 = effect, sd = standard_deviation,
     alpha = alpha, beta = beta, ratio = 1, outtype = 3)
 
@@ -310,7 +310,7 @@ assert("Comparison with gsDesign when test.type = 4", {
     upper = gs_spending_bound,
     upar = list(sf = sfLDOF, total_spend = alpha),
     lower = gs_spending_bound,
-    lpar = list(sf = sfLDOF, total_spend = beta))
+    lpar = list(sf = sfLDOF, total_spend = beta))$analysis
 
     # the efficacy bounds from gsDesign match gsDesign2
     (all.equal(
@@ -345,7 +345,7 @@ assert("Comparison with gsDesign when test.type = 3", {
   effect <- 0.5
   standard_deviation <- 1
 
-  fixed_normal <- nNormal(
+  fixed_normal <- gsDesign::nNormal(
     delta1 = effect, sd = standard_deviation,
     alpha = alpha, beta = beta, ratio = 1, outtype = 3)
 
@@ -363,7 +363,7 @@ assert("Comparison with gsDesign when test.type = 3", {
     upper = gs_spending_bound,
     upar = list(sf = sfLDOF, total_spend = alpha),
     lower = gs_spending_bound,
-    lpar = list(sf = sfLDOF, total_spend = beta))
+    lpar = list(sf = sfLDOF, total_spend = beta))$analysis
 
     # the efficacy bounds from gsDesign match gsDesign2
     (all.equal(

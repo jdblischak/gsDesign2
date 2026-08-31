@@ -275,7 +275,7 @@ gs_update_ahr <- function(
                                  test_upper = x$input$test_upper,
                                  lower = x$input$lower, lpar = x$input$lpar,
                                  test_lower = x$input$test_lower,
-                                 binding = x$input$binding)
+                                 binding = x$input$binding)$analysis
 
     # Update boundaries and crossing prob under H1 ----
     x_updated_h1 <- gs_power_npe(theta = x$analysis$theta,
@@ -295,7 +295,7 @@ gs_update_ahr <- function(
                                  test_upper = x$input$test_upper,
                                  lower = x$input$lower, lpar = x$input$lpar,
                                  test_lower = x$input$test_lower,
-                                 binding = x$input$binding)
+                                 binding = x$input$binding)$analysis
   } else {
     # ----------------------------------- #
     #         Scenario 2:                 #
@@ -355,7 +355,7 @@ gs_update_ahr <- function(
                                  test_upper = x$input$test_upper,
                                  lower = x$input$lower, lpar = lpar_update,
                                  test_lower = x$input$test_lower,
-                                 binding = x$input$binding)
+                                 binding = x$input$binding)$analysis
 
     # Update boundaries and crossing prob under H1
     x_updated_h1 <- gs_power_npe(theta = blinded_est$theta,
@@ -367,14 +367,14 @@ gs_update_ahr <- function(
                                  test_upper = x$input$test_upper,
                                  lower = x$input$lower, lpar = lpar_update,
                                  test_lower = x$input$test_lower,
-                                 binding = x$input$binding)
+                                 binding = x$input$binding)$analysis
   }
 
   # ----------------------------------- #
   #         Tidy outputs                #
   # ----------------------------------- #
   ans <- list()
-  
+
   ans$design <- x$design
 
   ans$enroll_rate <- x$enroll_rate

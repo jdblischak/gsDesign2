@@ -65,7 +65,7 @@ assert("Check using gs_info_wlr and gs_power_npe", {
     test_lower = TRUE,
     r = 18,
     tol = 1e-6
-  ) |> dplyr::arrange(analysis, bound)
+  )$analysis |> dplyr::arrange(analysis, bound)
 
   # output
   gspow <- gsDesign2::gs_power_wlr(

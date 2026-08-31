@@ -93,9 +93,9 @@
 #' # Same upper bound; this represents non-binding Type I error and will total 0.025
 #' gs_power_npe(
 #'   theta = rep(0, 3),
-#'   info = (x |> dplyr::filter(bound == "upper"))$info,
+#'   info = (x$analysis |> dplyr::filter(bound == "upper"))$info,
 #'   upper = gs_b,
-#'   upar = (x |> dplyr::filter(bound == "upper"))$z,
+#'   upar = (x$analysis |> dplyr::filter(bound == "upper"))$z,
 #'   lower = gs_b,
 #'   lpar = rep(-Inf, 3)
 #' )
@@ -181,8 +181,8 @@
 #'   binding = TRUE,
 #'   upper = gs_b,
 #'   lower = gs_b,
-#'   upar = (xx |> dplyr::filter(bound == "upper"))$z,
-#'   lpar = -(xx |> dplyr::filter(bound == "upper"))$z
+#'   upar = (xx$analysis |> dplyr::filter(bound == "upper"))$z,
+#'   lpar = -(xx$analysis |> dplyr::filter(bound == "upper"))$z
 #' )
 gs_design_npe <- function(
     theta = .1, theta0 = 0, theta1 = theta, # 3 theta
@@ -216,6 +216,14 @@ gs_design_npe <- function(
   if (identical(harm, gs_b) && length(hpar) == 1 && n_analysis > 1) {
     hpar <- rep(hpar, n_analysis)
   }
+
+  input <- list(
+    theta = theta, theta0 = theta0, theta1 = theta1, info = info, info0 = info0,
+    info1 = info1, info_scale = info_scale, upper = upper, upar = upar,
+    lower = lower, lpar =lpar, test_upper = test_upper, test_lower = test_lower,
+    binding = binding, harm = harm, hpar = hpar, test_harm = test_harm, r = r,
+    tol = tol
+  )
 
   # Set up info ----
   if (is.null(info0)) {
@@ -281,7 +289,7 @@ gs_design_npe <- function(
         test_lower = test_lower, binding = binding,
         harm = harm, hpar = hpar, test_harm = test_harm,
         r = r, tol = tol
-      )
+      )$analysis
       ans_h0 <- gs_power_npe(
         theta = 0, theta0 = theta0, theta1 = theta1,
         info = info0 * min_x, info0 = info0 * min_x, info1 = info1 * min_x,
@@ -292,25 +300,57 @@ gs_design_npe <- function(
         test_lower = test_lower, binding = binding,
         harm = harm, hpar = hpar, test_harm = test_harm,
         r = r, tol = tol
-      )
+      )$analysis
       suppressMessages(
-        ans <- ans_h1 |>
+        analysis <- ans_h1 |>
           full_join(
             ans_h0 |>
               select(analysis, bound, probability) |>
               rename(probability0 = probability)
           )
       )
-      ans <- ans |> select(analysis, bound, z, probability, probability0, theta, info_frac, info, info0, info1)
+      analysis <- analysis |> select(analysis, bound, z, probability, probability0, theta, info_frac, info, info0, info1)
+      rownames(analysis) <- NULL
+
+      ans <- structure(
+        list(
+          design = "npe",
+          input = input,
+          enroll_rate = NULL,
+          fail_rate = NULL,
+          bound = NULL,
+          analysis = analysis
+        ),
+        class = "gs_design",
+        binding = binding,
+        uninteger_is_from = "gs_design_npe"
+      )
+
       return(ans)
     }
 
-    ans <- tibble(
+    analysis <- data.frame(
       analysis = 1, bound = "upper", z = qnorm(1 - alpha),
       probability = 1 - beta, probability0 = alpha, theta = theta,
       info = info * min_x, info0 = info0 * min_x, info1 = info1 * min_x,
       info_frac = info / max(info)
     )
+    rownames(analysis) <- NULL
+
+    ans <- structure(
+      list(
+        design = "npe",
+        input = input,
+        enroll_rate = NULL,
+        fail_rate = NULL,
+        bound = NULL,
+        analysis = analysis
+      ),
+      class = "gs_design",
+      binding = binding,
+      uninteger_is_from = "gs_design_npe"
+    )
+
     return(ans)
   }
 
@@ -325,7 +365,7 @@ gs_design_npe <- function(
     binding = binding,
     harm = harm, hpar = hpar, test_harm = test_harm,
     r = r, tol = tol
-  )
+  )$analysis
   min_power <- (min_temp[min_temp$bound == "upper" & min_temp$analysis == n_analysis, ])$probability
 
   # a flag indicates if max_x can be found
@@ -345,7 +385,7 @@ gs_design_npe <- function(
         binding = binding,
         harm = harm, hpar = hpar, test_harm = test_harm,
         r = r, tol = tol
-      )
+      )$analysis
       max_power <- (max_temp[max_temp$bound == "upper" & max_temp$analysis == n_analysis, ])$probability
 
       if (max_power < 1 - beta) {
@@ -372,7 +412,7 @@ gs_design_npe <- function(
         binding = binding,
         harm = harm, hpar = hpar, test_harm = test_harm,
         r = r, tol = tol
-      )
+      )$analysis
       micro_power <- (micro_temp[micro_temp$bound == "upper" & micro_temp$analysis == n_analysis, ])$probability
 
       if (micro_power > 1 - beta) {
@@ -406,7 +446,7 @@ gs_design_npe <- function(
       harm = harm, hpar = hpar, test_harm = test_harm,
       r = r, tol = tol
     )
-    power <- subset(ans_h1, bound == "upper" & analysis == n_analysis)$probability
+    power <- subset(ans_h1$analysis, bound == "upper" & analysis == n_analysis)$probability
     1 - beta - power
   }
 
@@ -430,7 +470,7 @@ gs_design_npe <- function(
     binding = binding,
     harm = harm, hpar = hpar, test_harm = test_harm,
     r = r, tol = tol
-  )
+  )$analysis
 
   # combine probability under H0 and H1 via direct merge on analysis+bound
   ans_h0_sub <- data.frame(
@@ -439,10 +479,24 @@ gs_design_npe <- function(
     probability0 = ans_h0$probability,
     stringsAsFactors = FALSE
   )
-  ans <- merge(as.data.frame(ans_h1), ans_h0_sub, by = c("analysis", "bound"), all.x = TRUE)
+  analysis <- merge(as.data.frame(ans_h1$analysis), ans_h0_sub, by = c("analysis", "bound"), all.x = TRUE)
 
-  ans <- ans[order(ans$analysis, ans$bound != "upper"), c("analysis", "bound", "z", "probability", "probability0", "theta", "info_frac", "info", "info0", "info1")]
-  rownames(ans) <- NULL
+  analysis <- analysis[order(analysis$analysis, analysis$bound != "upper"), c("analysis", "bound", "z", "probability", "probability0", "theta", "info_frac", "info", "info0", "info1")]
+  rownames(analysis) <- NULL
 
-  return(tibble::as_tibble(ans))
+  ans <- structure(
+    list(
+      design = "npe",
+      input = input,
+      enroll_rate = NULL,
+      fail_rate = NULL,
+      bound = NULL,
+      analysis = analysis
+    ),
+    class = "gs_design",
+    binding = binding,
+    uninteger_is_from = "gs_design_npe"
+  )
+
+  return(ans)
 }

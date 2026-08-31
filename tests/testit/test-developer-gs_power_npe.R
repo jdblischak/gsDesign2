@@ -1,5 +1,5 @@
 assert("The default of `gs_power_npe` is a single analysis with type I error controlled.", {
-  x1 <- gs_power_npe(theta = 0) |>
+  x1 <- gs_power_npe(theta = 0)$analysis |>
     dplyr::filter(bound == "upper") |>
     dplyr::select(-info_frac)
   x2 <- gs_power_npe_(theta = 0) |>
@@ -17,7 +17,7 @@ assert("fixed bound", {
     upar = gsDesign::gsDesign(k = 3, sfu = gsDesign::sfLDOF)$upper$bound,
     lower = gs_b,
     lpar = c(-1, 0, 0)
-  ) |>
+  )$analysis |>
     dplyr::select(-info_frac)
   x2 <- gs_power_npe_(
     theta = c(.1, .2, .3),
@@ -38,7 +38,7 @@ assert("Same fixed efficacy bounds, no futility bound (i.e., non-binding bound),
     info = (1:3) * 40,
     upar = gsDesign::gsDesign(k = 3, sfu = gsDesign::sfLDOF)$upper$bound,
     lpar = rep(-Inf, 3)
-  ) |>
+  )$analysis |>
     dplyr::select(-info_frac)
   x2 <- gs_power_npe_(
     theta = rep(0, 3),
@@ -59,7 +59,7 @@ assert("Fixed bound with futility only at analysis 1; efficacy only at analyses 
     upar = c(Inf, 3, 2),
     lower = gs_b,
     lpar = c(qnorm(.1), -Inf, -Inf)
-  ) |>
+  )$analysis |>
     dplyr::select(-info_frac)
   x2 <- gs_power_npe_(
     theta = c(.1, .2, .3),
@@ -82,7 +82,7 @@ assert("Spending function bounds - Lower spending based on non-zero effect", {
     upar = list(sf = gsDesign::sfLDOF, total_spend = 0.025, param = NULL, timing = NULL),
     lower = gs_spending_bound,
     lpar = list(sf = gsDesign::sfHSD, total_spend = 0.1, param = -1, timing = NULL)
-  ) |>
+  )$analysis |>
     dplyr::select(-info_frac)
   x2 <- gs_power_npe_(
     theta = c(.1, .2, .3),
@@ -108,7 +108,7 @@ assert("Same bounds, but power under different theta", {
     upar = list(sf = gsDesign::sfLDOF, total_spend = 0.025, param = NULL, timing = NULL),
     lower = gs_spending_bound,
     lpar = list(sf = gsDesign::sfHSD, total_spend = 0.1, param = -1, timing = NULL)
-  ) |>
+  )$analysis |>
     dplyr::select(-info_frac)
   x2 <- gs_power_npe_(
     theta = c(.15, .25, .35),
@@ -135,7 +135,7 @@ assert("Two-sided symmetric spend, O'Brien-Fleming spending", {
     upar = list(sf = gsDesign::sfLDOF, total_spend = 0.025, param = NULL, timing = NULL),
     lower = gs_spending_bound,
     lpar = list(sf = gsDesign::sfLDOF, total_spend = 0.025, param = NULL, timing = NULL)
-  ) |>
+  )$analysis |>
     dplyr::select(-info_frac)
   x2 <- gs_power_npe_(
     theta = rep(0, 3),
@@ -160,7 +160,7 @@ assert("Re-use these bounds under alternate hypothesis - Always use binding = TR
     upar = list(sf = gsDesign::sfLDOF, total_spend = 0.025, param = NULL, timing = NULL),
     lower = gs_spending_bound,
     lpar = list(sf = gsDesign::sfLDOF, total_spend = 0.025, param = NULL, timing = NULL)
-  ) |>
+  )$analysis |>
     dplyr::select(-info_frac)
   x1 <- gs_power_npe(
     theta = c(.1, .2, .3),
@@ -168,7 +168,7 @@ assert("Re-use these bounds under alternate hypothesis - Always use binding = TR
     binding = TRUE,
     upar = (x |> dplyr::filter(bound == "upper"))$z,
     lpar = -(x |> dplyr::filter(bound == "upper"))$z
-  ) |>
+  )$analysis |>
     dplyr::select(-info_frac)
   x2 <- gs_power_npe_(
     theta = c(.1, .2, .3),
@@ -188,21 +188,21 @@ assert("info != info0 != info1 - If one inputs info in upar", {
     info = (1:3) * 80, info0 = (1:3) * 90 + 10, info1 = (1:3) * 70 - 5, info_scale = "h0_info",
     upper = gs_b, upar = gsDesign::gsDesign(k = 3, sfu = gsDesign::sfLDOF)$upper$bound,
     lower = gs_b, lpar = c(-1, 0, 0)
-  ) |>
+  )$analysis |>
     dplyr::select(-info_frac)
   x1_b <- gs_power_npe(
     theta = c(.1, .2, .3),
     info = (1:3) * 80, info0 = (1:3) * 90 + 10, info1 = (1:3) * 70 - 5, info_scale = "h1_info",
     upper = gs_b, upar = gsDesign::gsDesign(k = 3, sfu = gsDesign::sfLDOF)$upper$bound,
     lower = gs_b, lpar = c(-1, 0, 0)
-  ) |>
+  )$analysis |>
     dplyr::select(-info_frac)
   x1_c <- gs_power_npe(
     theta = c(.1, .2, .3),
     info = (1:3) * 80, info0 = (1:3) * 90 + 10, info1 = (1:3) * 70 - 5, info_scale = "h0_h1_info",
     upper = gs_b, upar = gsDesign::gsDesign(k = 3, sfu = gsDesign::sfLDOF)$upper$bound,
     lower = gs_b, lpar = c(-1, 0, 0)
-  ) |>
+  )$analysis |>
     dplyr::select(-info_frac)
   x2 <- gs_power_npe_(
     theta = c(.1, .2, .3),
@@ -225,7 +225,7 @@ assert("Developer Tests 1-sided test", {
     upar = gsDesign::gsDesign(k = 3, test.type = 1, sfu = gsDesign::sfLDOF)$upper$bound,
     lower = gs_b,
     lpar = rep(-Inf, 3)
-  ) |>
+  )$analysis |>
     dplyr::select(-info_frac)
   y <- gs_power_npe_(
     theta = 0,
@@ -262,8 +262,8 @@ assert("Independent Tests - Expect equal with mvtnorm for efficacy and futility 
     lower = gs_spending_bound,
     lpar = list(sf = gsDesign::sfLDOF, param = NULL, total_spend = 0.02)
   )
-  test1 <- test |> dplyr::filter(bound == "upper")
-  test2 <- test |> dplyr::filter(bound == "lower")
+  test1 <- test$analysis |> dplyr::filter(bound == "upper")
+  test2 <- test$analysis |> dplyr::filter(bound == "lower")
   alpha_t <- 0.025
   b_ia <- gsDesign::sfLDOF(alpha = alpha_t, t = r)
   alpha_ia <- b_ia$spend
@@ -305,7 +305,7 @@ assert("Expect equal with gsDesign::gsProbability outcome for efficacy bounds", 
     upar = list(sf = gsDesign::sfLDOF, param = NULL, total_spend = 0.025),
     lower = gs_b,
     lpar = rep(-Inf, 3)
-  ) |>
+  )$analysis |>
     dplyr::filter(bound == "upper")
   y <- gs_power_npe(
     theta = .1,
@@ -314,7 +314,7 @@ assert("Expect equal with gsDesign::gsProbability outcome for efficacy bounds", 
     upar = list(sf = gsDesign::sfLDOF, param = NULL, total_spend = 0.025),
     lower = gs_b,
     lpar = rep(-Inf, 3)
-  ) |>
+  )$analysis |>
     dplyr::filter(bound == "upper")
   z <- gsDesign::gsProbability(
     k = 3, theta = .1,
@@ -350,8 +350,8 @@ assert("Harm bound - Cap harm bound at futility bound", {
     hpar = list(sf = gsDesign::sfHSD, total_spend = 0.1, param = -4, timing = NULL),
     test_harm = c(TRUE, TRUE, TRUE)
   )
-  harm_bound <- x |> dplyr::filter(bound == "harm") |> dplyr::pull(z)
-  futility_bound <- x |> dplyr::filter(bound == "lower") |> dplyr::pull(z)
+  harm_bound <- x$analysis |> dplyr::filter(bound == "harm") |> dplyr::pull(z)
+  futility_bound <- x$analysis |> dplyr::filter(bound == "lower") |> dplyr::pull(z)
   (harm_bound <= futility_bound)
 
   x <- gs_power_npe(
@@ -366,9 +366,9 @@ assert("Harm bound - Cap harm bound at futility bound", {
     hpar = list(sf = gsDesign::sfHSD, total_spend = 0.1, param = -4, timing = NULL),
     test_harm = c(TRUE, TRUE, TRUE)
   )
-  harm_analysis <- x |> dplyr::filter(bound == "harm", !is.infinite(z)) |> dplyr::pull(analysis)
-  harm_bound <- x |> dplyr::filter(bound == "harm") |> dplyr::pull(z)
-  futility_bound <- x |> dplyr::filter(bound == "lower", analysis %in% harm_analysis) |> dplyr::pull(z)
+  harm_analysis <- x$analysis |> dplyr::filter(bound == "harm", !is.infinite(z)) |> dplyr::pull(analysis)
+  harm_bound <- x$analysis |> dplyr::filter(bound == "harm") |> dplyr::pull(z)
+  futility_bound <- x$analysis |> dplyr::filter(bound == "lower", analysis %in% harm_analysis) |> dplyr::pull(z)
   (harm_bound <= futility_bound)
   (harm_analysis %==% 1:2)
 })

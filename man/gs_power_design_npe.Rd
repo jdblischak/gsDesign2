@@ -297,9 +297,9 @@ x
 # Same upper bound; this represents non-binding Type I error and will total 0.025
 gs_power_npe(
   theta = rep(0, 3),
-  info = (x |> dplyr::filter(bound == "upper"))$info,
+  info = (x$analysis |> dplyr::filter(bound == "upper"))$info,
   upper = gs_b,
-  upar = (x |> dplyr::filter(bound == "upper"))$z,
+  upar = (x$analysis |> dplyr::filter(bound == "upper"))$z,
   lower = gs_b,
   lpar = rep(-Inf, 3)
 )
@@ -385,13 +385,13 @@ gs_power_npe(
   binding = TRUE,
   upper = gs_b,
   lower = gs_b,
-  upar = (xx |> dplyr::filter(bound == "upper"))$z,
-  lpar = -(xx |> dplyr::filter(bound == "upper"))$z
+  upar = (xx$analysis |> dplyr::filter(bound == "upper"))$z,
+  lpar = -(xx$analysis |> dplyr::filter(bound == "upper"))$z
 )
 
 # Example 6 ----
 # Default of gs_power_npe (single analysis; Type I error controlled)
-gs_power_npe(theta = 0) |> dplyr::filter(bound == "upper")
+gs_power_npe(theta = 0)$analysis |> dplyr::filter(bound == "upper")
 
 # Example 7 ----
 # gs_power_npe with fixed bound
@@ -410,7 +410,7 @@ gs_power_npe(
   info = (1:3) * 40,
   upar = gsDesign::gsDesign(k = 3, sfu = gsDesign::sfLDOF)$upper$bound,
   lpar = rep(-Inf, 3)
-) |>
+)$analysis |>
   dplyr::filter(bound == "upper")
 
 # Example 8 ----
@@ -480,8 +480,8 @@ gs_power_npe(
   theta = c(.1, .2, .3),
   info = (1:3) * 40,
   binding = TRUE,
-  upar = (x |> dplyr::filter(bound == "upper"))$z,
-  lpar = -(x |> dplyr::filter(bound == "upper"))$z
+  upar = (x$analysis |> dplyr::filter(bound == "upper"))$z,
+  lpar = -(x$analysis |> dplyr::filter(bound == "upper"))$z
 )
 
 # Example 11 ----

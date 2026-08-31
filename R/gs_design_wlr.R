@@ -277,7 +277,7 @@ gs_design_wlr <- function(
       upper = upper, upar = upar, test_upper = test_upper,
       lower = lower, lpar = lpar, test_lower = test_lower,
       r = r, tol = tol
-    ) |>
+    )$analysis |>
       full_join(
         y |> select(-c(info, info0, theta)),
         by = "analysis"

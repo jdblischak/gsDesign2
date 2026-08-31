@@ -98,7 +98,7 @@
 #' # Example 2 ----
 #' # Single analysis
 #' gs_design_ahr(analysis_time = 40)
-#' 
+#'
 #' # Example 3 ----
 #' # Multiple analysis_time
 #' gs_design_ahr(analysis_time = c(12, 24, 36))
@@ -330,7 +330,7 @@ gs_design_ahr <- function(
       lower = lower, lpar = lpar, test_lower = test_lower,
       harm = harm, hpar = hpar, test_harm = test_harm,
       r = r, tol = tol
-    )
+    )$analysis
   )
 
   # Add computed columns

@@ -220,7 +220,7 @@ gs_design_rd <- function(p_c = tibble::tibble(stratum = "All", rate = .2),
     upper = upper, upar = upar, test_upper = test_upper,
     lower = lower, lpar = lpar, test_lower = test_lower,
     r = r, tol = tol
-  )
+  )$analysis
 
   # Get statistical information ----
   inflac_fct <- if (info_scale == "h0_info") {

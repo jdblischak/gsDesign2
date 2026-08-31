@@ -291,7 +291,7 @@ gs_power_rd <- function(
     test_lower = test_lower,
     r = r,
     tol = tol
-  )
+  )$analysis
 
   y_h0 <- gs_power_npe(
     theta = x$rd0,
@@ -308,7 +308,7 @@ gs_power_rd <- function(
     test_lower = test_lower,
     r = r,
     tol = tol
-  )
+  )$analysis
 
   # Organize the outputs ----
   # summarize the bounds

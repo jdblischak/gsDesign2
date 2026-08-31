@@ -236,7 +236,7 @@ gs_power_wlr <- function(enroll_rate = define_enroll_rate(duration = c(2, 2, 10)
     test_lower = test_lower,
     r = r,
     tol = tol
-  )
+  )$analysis
 
   y_h0 <- gs_power_npe(
     theta = 0,
@@ -255,7 +255,7 @@ gs_power_wlr <- function(enroll_rate = define_enroll_rate(duration = c(2, 2, 10)
     test_lower = test_lower,
     r = r,
     tol = tol
-  )
+  )$analysis
 
   # Get bounds to output ----
   suppressMessages(

@@ -32,7 +32,7 @@ assert("One-sided design fails to reproduce gsDesign package bounds", {
     upar = list(sf = sfu, total_spend = alpha, param = sfupar),
     lower = gs_b,
     lpar = rep(-Inf, K)
-  ) |> dplyr::filter(bound == "upper")
+  )$analysis |> dplyr::filter(bound == "upper")
 
   # Compare boundaries
   (all.equal(gsd$upper$bound, gsdv$z, tolerance = 7e-6))
@@ -71,7 +71,7 @@ assert("Two-sided symmetric design fails to reproduce gsDesign test.type=2 bound
     lower = gs_spending_bound,
     lpar = list(sf = sfu, total_spend = alpha, param = sfupar),
     tol = 1e-6
-  )
+  )$analysis
   # Compare boundaries
   (all.equal(gsd$upper$bound, (gsdv |> dplyr::filter(bound == "upper"))$z, tolerance = 7e-6))
   (all.equal(gsd$lower$bound, (gsdv |> dplyr::filter(bound == "lower"))$z, tolerance = 7e-6))
@@ -110,7 +110,7 @@ assert("Two-sided asymmetric design fails to reproduce gsDesign test.type=3 boun
     upar = list(sf = sfu, total_spend = alpha, param = sfupar),
     lower = gs_spending_bound,
     lpar = list(sf = sfl, total_spend = beta, param = sflpar)
-  )
+  )$analysis
   # Compare boundaries
   (all.equal(gsd$upper$bound, (gsdv |> dplyr::filter(bound == "upper"))$z, tolerance = 7e-6))
   (all.equal(gsd$lower$bound, (gsdv |> dplyr::filter(bound == "lower"))$z, tolerance = 9e-6))
@@ -152,7 +152,7 @@ assert("Two-sided asymmetric design fails to reproduce gsDesign test.type=4 boun
     upar = list(sf = sfu, total_spend = alpha, param = sfupar),
     lower = gs_spending_bound,
     lpar = list(sf = sfl, total_spend = beta, param = sflpar)
-  )
+  )$analysis
 
   # Compare boundaries
   (all.equal(gsd$upper$bound, (gsdv |> dplyr::filter(bound == "upper"))$z, tolerance = 7e-6))
@@ -201,7 +201,7 @@ assert("Two-sided asymmetric design fails to reproduce gsDesign test.type=5 boun
     upar = list(sf = sfu, total_spend = alpha, param = sfupar),
     lower = gs_spending_bound,
     lpar = list(sf = sfl, total_spend = astar, param = sflpar)
-  )
+  )$analysis
 
   # Compare boundaries
   (all.equal(gsd$upper$bound, (gsdv |> dplyr::filter(bound == "upper"))$z, tolerance = 7e-6))
@@ -223,7 +223,7 @@ assert("Two-sided asymmetric design fails to reproduce gsDesign test.type=5 boun
     upar = list(sf = sfu, total_spend = alpha, param = sfupar),
     lower = gs_spending_bound,
     lpar = list(sf = sfl, total_spend = astar, param = sflpar)
-  ) |>
+  )$analysis |>
     dplyr::filter(bound == "lower"))$probability
   expected <- sfl(alpha = astar, t = timing, param = sflpar)$spend
   (all.equal(res, expected))
@@ -254,7 +254,7 @@ assert("Two-sided asymmetric design fails to reproduce gsDesign test.type=6 boun
     upar = list(sf = sfu, total_spend = alpha, param = sfupar),
     lower = gs_spending_bound,
     lpar = list(sf = sfl, total_spend = astar, param = sflpar)
-  )
+  )$analysis
 
   # Compare boundaries
   (all.equal(gsd$upper$bound, (gsdv |> dplyr::filter(bound == "upper"))$z, tolerance = 7e-6))
@@ -276,7 +276,7 @@ assert("Two-sided asymmetric design fails to reproduce gsDesign test.type=6 boun
     upar = list(sf = sfu, total_spend = alpha, param = sfupar),
     lower = gs_spending_bound,
     lpar = list(sf = sfl, total_spend = astar, param = sflpar)
-  ) |>
+  )$analysis |>
     dplyr::filter(bound == "lower"))$probability
   expected <- sfl(alpha = astar, t = timing, param = sflpar)$spend
   (all.equal(res, expected, tolerance = 0.0001))

@@ -102,7 +102,7 @@ yb <- gs_power_npe(theta = y$analysis$theta,
                    upper = x$input$upper, lower = x$input$lower,
                    upar = upar_update, lpar = lpar_update,
                    binding = x$input$binding, r = x$input$r
-                   )
+                   )$analysis
 assert("Ex1: blinded theta computed correctly", {
   (y$analysis$theta %==% ahr_info$theta)
 })

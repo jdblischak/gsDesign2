@@ -263,7 +263,7 @@ gs_power_ahr <- function(
     lower = lower, lpar = lpar, test_lower = test_lower,
     harm = harm, hpar = hpar, test_harm = test_harm,
     binding = binding, r = r, tol = tol
-  )
+  )$analysis
 
   y_h0 <- gs_power_npe(
     theta = 0, theta0 = 0, theta1 = theta1,
@@ -282,7 +282,7 @@ gs_power_ahr <- function(
     test_lower = test_lower,
     harm = harm, hpar = hpar, test_harm = test_harm,
     binding = binding, r = r, tol = tol
-  )
+  )$analysis
 
   # Organize the outputs ----
   # Summarize the bounds
